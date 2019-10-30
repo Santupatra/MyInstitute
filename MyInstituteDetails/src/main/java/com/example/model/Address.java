@@ -59,7 +59,6 @@ public class Address {
 		Satate = satate;
 	}
 	
-	@JsonIgnore
 	public Employee getEmployee() {
 		 return employee;
 	}

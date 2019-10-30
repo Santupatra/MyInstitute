@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Department {
 
@@ -24,6 +26,11 @@ public class Department {
 
 	public Department() {
 		super();
+	}
+
+	public Department(String name) {
+		super();
+		this.name = name;
 	}
 
 	public Department(String name, List<Employee> employees) {
@@ -52,7 +59,7 @@ public class Department {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	@JsonIgnore
 	public List<Employee> getEmployees() {
 		return employees;
 	}

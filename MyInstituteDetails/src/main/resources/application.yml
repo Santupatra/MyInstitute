@@ -1,0 +1,7 @@
+spring:
+    datasource:
+        platform: h2
+        url: jdbc:h2:mem:santu
+    h2:
+        console:
+            enabled: true

@@ -14,6 +14,8 @@ public class DepartmentService {
 
 	@Autowired
 	private DepartmentRepository departmentRepository;
+	@Autowired
+	EmployeeService employeeService;
 
 	public List<Department> getDepartmentList() {
 		return departmentRepository.findAll();
@@ -27,4 +29,7 @@ public class DepartmentService {
 		return departmentRepository.findByName(name);
 	}
 
+	public void addNewDepartment(Department department) {
+		departmentRepository.save(department);
+	}
 }

@@ -42,7 +42,7 @@ public class Employee {
 				+ address + "]";
 	}
 
-	@JsonIgnore
+	
 	public Department getDepartment() {
 		return department;
 
@@ -83,7 +83,7 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	@JsonIgnore
 	public List<Address> getAddress() {
 		return address;
 	}

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ public class DepartmentController {
 	@Autowired
 	DepartmentService departmentService;
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<Department> DepartmentList() {
 		return departmentService.getDepartmentList();
 	}
@@ -32,6 +33,11 @@ public class DepartmentController {
 	@RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
 	public Optional<Department> getDepartmentByName(@PathVariable("name") String name) {
 		return departmentService.getDepartmentByName(name);
+	}
+
+	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
+	public void addNewDepartment(@RequestBody Department department) {
+		departmentService.addNewDepartment(department);
 	}
 
 }
