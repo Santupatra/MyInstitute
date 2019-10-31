@@ -25,14 +25,23 @@ public class DepartmentController {
 		return departmentService.getDepartmentList();
 	}
 
-	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
-	public Optional<Department> getDepartmentById(@PathVariable("id") long id) {
-		return departmentService.getDepartmentById(id);
-	}
-
-	@RequestMapping(value = "/getByName/{name}", method = RequestMethod.GET)
-	public Optional<Department> getDepartmentByName(@PathVariable("name") String name) {
-		return departmentService.getDepartmentByName(name);
+	@RequestMapping(value = "/{idOrName}", method = RequestMethod.GET)
+	public Optional<Department> getDepartment(@PathVariable("idOrName") String idOrName) {
+		Optional<Department> department = null;
+		int count = 0;
+		for (int i = 0; i < idOrName.length(); i++) {
+			if (!(idOrName.charAt(i) >= '0' && idOrName.charAt(i) <= '9')) {
+				department = departmentService.getDepartmentByName(idOrName);
+				break;
+			} else {
+				count++;
+			}
+		}
+		if (count == idOrName.length()) {
+			int id = Integer.parseInt(idOrName);
+			department = departmentService.getDepartmentById(id);
+		}
+		return department;
 	}
 
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)

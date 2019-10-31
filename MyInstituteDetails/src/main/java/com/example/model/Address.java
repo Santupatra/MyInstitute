@@ -58,7 +58,7 @@ public class Address {
 	public void setSatate(String satate) {
 		Satate = satate;
 	}
-	
+	@JsonIgnore
 	public Employee getEmployee() {
 		 return employee;
 	}

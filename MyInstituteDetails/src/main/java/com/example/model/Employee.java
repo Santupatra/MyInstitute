@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Employee {
 
@@ -83,7 +81,7 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	@JsonIgnore
+	
 	public List<Address> getAddress() {
 		return address;
 	}
