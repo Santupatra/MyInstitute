@@ -28,18 +28,12 @@ public class EmployeeController {
 	@RequestMapping(value = "/{idOrName}", method = RequestMethod.GET)
 	public Optional<Employee> getEmployee(@PathVariable("idOrName") String idOrName) {
 		Optional<Employee> employee = null;
-		int count = 0;
-		for (int i = 0; i < idOrName.length(); i++) {
-			if (!(idOrName.charAt(i) >= '0' && idOrName.charAt(i) <= '9')) {
-				employee = employeeService.getEmployeeByName(idOrName);
-				break;
-			} else {
-				count++;
-			}
-		}
-		if (count == idOrName.length()) {
+		String regex = "\\d+";
+		if (idOrName.matches(regex)) {
 			int id = Integer.parseInt(idOrName);
 			employee = employeeService.getEmployeeById(id);
+		} else {
+			employee = employeeService.getEmployeeByName(idOrName);
 		}
 		return employee;
 	}

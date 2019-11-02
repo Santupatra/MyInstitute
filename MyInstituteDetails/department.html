@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Department</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			url : 'http://localhost:8080/department/all',
+			method : 'get',
+			
+			success : function(data) {
+				var department_data = '';
+				$.each(data, function(key, value) {
+					alert(value);
+					department_data += '<tr>';
+					department_data += '<td>' + value.id + '</td>';
+					department_data += '<td>' + value.name + '</td>';
+					department_data += '</tr>';
+				});
+				$('#table').append(department_data);
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<table style="width: 50%" id="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+			</tr>
+		</thead>
+	</table>
+</body>
+</html>

@@ -28,18 +28,12 @@ public class DepartmentController {
 	@RequestMapping(value = "/{idOrName}", method = RequestMethod.GET)
 	public Optional<Department> getDepartment(@PathVariable("idOrName") String idOrName) {
 		Optional<Department> department = null;
-		int count = 0;
-		for (int i = 0; i < idOrName.length(); i++) {
-			if (!(idOrName.charAt(i) >= '0' && idOrName.charAt(i) <= '9')) {
-				department = departmentService.getDepartmentByName(idOrName);
-				break;
-			} else {
-				count++;
-			}
-		}
-		if (count == idOrName.length()) {
+		String regex = "\\d+";
+		if (idOrName.matches(regex)) {
 			int id = Integer.parseInt(idOrName);
 			department = departmentService.getDepartmentById(id);
+		} else {
+			department = departmentService.getDepartmentByName(idOrName);
 		}
 		return department;
 	}
