@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.example.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employee")
+@CrossOrigin
 public class EmployeeController {
 
 	@Autowired
@@ -23,6 +25,11 @@ public class EmployeeController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public List<Employee> EmployeeList() {
 		return employeeService.getEmployeeList();
+	}
+	
+	@RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
+	public List<Employee> EmployeeListByDepartmentId(@PathVariable("id") long id) {
+		return employeeService.getEmployeeListByDepartmentId(id);
 	}
 
 	@RequestMapping(value = "/{idOrName}", method = RequestMethod.GET)

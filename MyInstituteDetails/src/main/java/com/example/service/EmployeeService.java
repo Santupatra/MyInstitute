@@ -25,6 +25,10 @@ public class EmployeeService {
 	public List<Employee> getEmployeeList() {
 		return employeeRepository.findAll();
 	}
+	
+	public List<Employee> getEmployeeListByDepartmentId(long id) {
+		return employeeRepository.findByDepartmentId(id);
+	}
 
 	public Optional<Employee> getEmployeeById(long id) {
 		return employeeRepository.findById(id);
