@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.Department;
+import com.example.model.Employee;
 import com.example.service.DepartmentService;
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/departments")
 @CrossOrigin
 public class DepartmentController {
 
 	@Autowired
 	DepartmentService departmentService;
-	
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<Department> DepartmentList() {
 		return departmentService.getDepartmentList();
 	}
@@ -40,9 +41,25 @@ public class DepartmentController {
 		return department;
 	}
 
-	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public void addNewDepartment(@RequestBody Department department) {
 		departmentService.addNewDepartment(department);
 	}
 
+	@RequestMapping(value = "/{deptId}", method = RequestMethod.DELETE)
+	public void deleteDepartment(@PathVariable("deptId") long id) {
+		departmentService.deleteDepartment(id);
+	}
+
+//-----------------get all Employee for a particular department by department id ----
+	@RequestMapping(value = "/{id}/employees", method = RequestMethod.GET)
+	public List<Employee> EmployeeListByDepartmentId(@PathVariable("id") long id) {
+		return departmentService.getEmployeeListByDepartmentId(id);
+	}
+
+//------------add department for a employee(both exist) ------------------------------------
+	@RequestMapping(value = "/{deptId}/employees/{empId}", method = RequestMethod.POST)
+	public void addEmployees(@PathVariable("empId") long empId, @PathVariable("deptId") long deptId) {
+		departmentService.addEmployee(empId, deptId);
+	}
 }

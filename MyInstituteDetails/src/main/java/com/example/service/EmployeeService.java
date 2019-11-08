@@ -25,10 +25,6 @@ public class EmployeeService {
 	public List<Employee> getEmployeeList() {
 		return employeeRepository.findAll();
 	}
-	
-	public List<Employee> getEmployeeListByDepartmentId(long id) {
-		return employeeRepository.findByDepartmentId(id);
-	}
 
 	public Optional<Employee> getEmployeeById(long id) {
 		return employeeRepository.findById(id);
@@ -50,6 +46,16 @@ public class EmployeeService {
 		employeeOfDepartment.add(employee);
 		department.setEmployees(employeeOfDepartment);
 		departmentRepository.save(department);
+	}
+
+	public void deleteEmployee(long id) {
+		employeeRepository.deleteById(id);
+	}
+
+	public void updateEmployee(long id, Employee employee) {
+		employee.setId(id);
+		employeeRepository.saveAndFlush(employee);
+		
 	}
 
 }

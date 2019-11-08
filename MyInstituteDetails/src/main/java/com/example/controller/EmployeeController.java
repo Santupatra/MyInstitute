@@ -15,23 +15,20 @@ import com.example.model.Employee;
 import com.example.service.EmployeeService;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 @CrossOrigin
 public class EmployeeController {
 
 	@Autowired
 	EmployeeService employeeService;
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+//-----------------get Employee list ----------------------
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<Employee> EmployeeList() {
 		return employeeService.getEmployeeList();
 	}
-	
-	@RequestMapping(value = "/department/{id}", method = RequestMethod.GET)
-	public List<Employee> EmployeeListByDepartmentId(@PathVariable("id") long id) {
-		return employeeService.getEmployeeListByDepartmentId(id);
-	}
 
+//----------------get Employee By id/Name ----------------------------
 	@RequestMapping(value = "/{idOrName}", method = RequestMethod.GET)
 	public Optional<Employee> getEmployee(@PathVariable("idOrName") String idOrName) {
 		Optional<Employee> employee = null;
@@ -45,13 +42,21 @@ public class EmployeeController {
 		return employee;
 	}
 
-	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
+//--------------add New Employee ---------------------------
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	public void addNewEmployee(@RequestBody Employee employee) {
 		employeeService.addNewEmployee(employee);
 	}
 
-	@RequestMapping(value = "/{empId}/add/department/{deptId}", method = RequestMethod.POST)
-	public void addEmployees(@PathVariable("empId") long empId, @PathVariable("deptId") long deptId) {
-		employeeService.addEmployee(empId, deptId);
+//--------------delete a Employee by id --------------------
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public void deleteEmployee(@PathVariable("id") long id) {
+		employeeService.deleteEmployee(id);
+	}
+
+//--------------update a Employee by id --------------------
+	@RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+	public void updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
+		employeeService.updateEmployee(id, employee);
 	}
 }
